@@ -23,8 +23,8 @@ class Calculator extends StatefulWidget {
 class CalculatorState extends State<Calculator> {
   int? operationId;
   String num1 = "";
-  int parseNum = 0;
-  int totalNum = 0;
+  BigInt parseNum = BigInt.zero;
+  BigInt totalNum = BigInt.zero;
   Container operationButton({IconData? iconImage, int? operId}) {
     print(operId);
 
@@ -69,7 +69,7 @@ class CalculatorState extends State<Calculator> {
 
   void operations({int? id, int? equal}) {
     setState(() {
-      parseNum = int.parse(num1);
+      parseNum = BigInt.parse(num1);
       switch (id) {
         case 1:
           totalNum += parseNum;
@@ -77,20 +77,20 @@ class CalculatorState extends State<Calculator> {
           break;
 
         case 2:
-          totalNum == 0 ? totalNum += parseNum : totalNum -= parseNum;
+          totalNum == BigInt.zero ? totalNum += parseNum : totalNum -= parseNum;
           operationId = 2;
           break;
 
         case 3:
-          if (totalNum == 0) {
-            totalNum = 1;
+          if (totalNum == BigInt.zero) {
+            totalNum = BigInt.one;
           }
           totalNum *= parseNum;
           operationId = 3;
           break;
 
         case 4:
-          if (totalNum == 0) {
+          if (totalNum == BigInt.zero) {
             totalNum += parseNum;
           } else {
             totalNum = totalNum ~/ parseNum;
@@ -103,7 +103,7 @@ class CalculatorState extends State<Calculator> {
           break;
 
         case 6:
-          totalNum = 0;
+          totalNum = BigInt.zero;
           break;
 
         default:
@@ -113,7 +113,7 @@ class CalculatorState extends State<Calculator> {
       if (equal == 7) {
         print("Equal to called");
         num1 = totalNum.toString();
-        totalNum = 0;
+        totalNum = BigInt.zero;
       }
       if (id != 5) {
         if (equal != 7) {
